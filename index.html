@@ -4,25 +4,61 @@
   <meta charset="utf-8">
   <title>Formulario Universidad</title>
   <style>
-    body { font-family: Arial; margin: 2rem; }
-    input, textarea { display: block; margin-bottom: 1rem; width: 300px; }
-    button { padding: 8px 16px; cursor: pointer; }
-    #mensaje { margin-top: 1rem; font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f5f5f5;
+    }
+    form {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 8px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #125ea9;
+    }
+    #mensaje {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <h2>Encuesta Universitaria</h2>
   <form id="miForm">
-    <label>Nombre: <input name="nombre" required></label>
-    <label>Email: <input name="email" type="email" required></label>
-    <label>Respuesta: <textarea name="respuesta" required></textarea></label>
+    <label>Nombre:</label>
+    <input name="nombre" required>
+
+    <label>Email:</label>
+    <input name="email" type="email" required>
+
+    <label>Respuesta:</label>
+    <textarea name="respuesta" required></textarea>
+
     <button type="submit">Enviar</button>
   </form>
 
   <div id="mensaje"></div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufgeT-sI3pP629ASQlhiEU2bszIacQB8i-4645hibjdOc3arcfOJ0w68Gb2rWNkw/exec"; // tu URL
+    // ⚠️ Reemplaza con TU URL del script desplegado
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufgeT-sI3pP629ASQlhiEU2bszIacQB8i-4645hibjdOc3arcfOJ0w68Gb2rWNkw/exec";
 
     document.getElementById("miForm").addEventListener("submit", async (ev) => {
       ev.preventDefault();
@@ -38,6 +74,7 @@
         });
 
         const json = await res.json();
+
         if (json.success) {
           mensaje.textContent = "✅ Enviado correctamente";
           mensaje.style.color = "green";
@@ -47,10 +84,11 @@
           mensaje.style.color = "red";
         }
       } catch (err) {
-        mensaje.textContent = "⚠️ Error de conexión: " + err;
+        mensaje.textContent = "⚠️ Error de conexión: " + err.message;
         mensaje.style.color = "red";
       }
     });
   </script>
 </body>
 </html>
+
