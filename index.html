@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Formulario Universidad</title>
+  <title>Encuesta Universitaria</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -33,15 +33,12 @@
     button:hover {
       background-color: #125ea9;
     }
-    #mensaje {
-      margin-top: 1rem;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
   <h2>Encuesta Universitaria</h2>
-  <form id="miForm">
+
+  <form action="https://script.google.com/macros/s/AKfycbxufgeT-sI3pP629ASQlhiEU2bszIacQB8i-4645hibjdOc3arcfOJ0w68Gb2rWNkw/exec" method="POST">
     <label>Nombre:</label>
     <input name="nombre" required>
 
@@ -54,41 +51,7 @@
     <button type="submit">Enviar</button>
   </form>
 
-  <div id="mensaje"></div>
-
-  <script>
-    // ⚠️ Reemplaza con TU URL del script desplegado
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufgeT-sI3pP629ASQlhiEU2bszIacQB8i-4645hibjdOc3arcfOJ0w68Gb2rWNkw/exec";
-
-    document.getElementById("miForm").addEventListener("submit", async (ev) => {
-      ev.preventDefault();
-
-      const data = Object.fromEntries(new FormData(ev.target).entries());
-      const mensaje = document.getElementById("mensaje");
-
-      try {
-        const res = await fetch(SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-
-        const json = await res.json();
-
-        if (json.success) {
-          mensaje.textContent = "✅ Enviado correctamente";
-          mensaje.style.color = "green";
-          ev.target.reset();
-        } else {
-          mensaje.textContent = "❌ Error: " + json.error;
-          mensaje.style.color = "red";
-        }
-      } catch (err) {
-        mensaje.textContent = "⚠️ Error de conexión: " + err.message;
-        mensaje.style.color = "red";
-      }
-    });
-  </script>
+  <p>Cuando presiones enviar, tus respuestas se guardarán automáticamente en Google Sheets.</p>
 </body>
 </html>
 
